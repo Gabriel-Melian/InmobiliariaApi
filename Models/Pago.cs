@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 namespace InmobiliariaApi.Models
 {
     public class Pago
     {
+        [Key]
         public int IdPago { get; set; }
         public DateTime FechaPago { get; set; }
         public decimal Monto { get; set; }

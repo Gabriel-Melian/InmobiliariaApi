@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 namespace InmobiliariaApi.Models
 {
     public class Propietario
     {
+        [Key]
         public int IdPropietario { get; set; }
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
@@ -9,6 +11,6 @@ namespace InmobiliariaApi.Models
         public string? Telefono { get; set; }
         public string? Email { get; set; }
         public string? Clave { get; set; }
-        
+
     }
 }

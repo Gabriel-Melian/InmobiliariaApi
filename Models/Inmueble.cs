@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 namespace InmobiliariaApi.Models
 {
     public class Inmueble
     {
+        [Key]
         public int IdInmueble { get; set; }
         public string? Direccion { get; set; }
         public string? Uso { get; set; }
