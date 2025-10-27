@@ -38,5 +38,12 @@ namespace InmobiliariaApi.Repositories
         {
             return await _context.Propietarios.ToListAsync();
         }
+
+        //Resetear (SOLO DE TESTEO!!!!)
+        public async Task CreateAsync(Propietario propietario)
+        {
+            _context.Propietarios.Add(propietario);
+            await _context.SaveChangesAsync();
+        }
     }
 }
