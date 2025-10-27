@@ -5,6 +5,7 @@ using System.Text;//Nuevo
 using InmobiliariaApi.Services;//Nuevo
 using InmobiliariaApi.Data;//Nuevo
 using Microsoft.EntityFrameworkCore;//Nuevo
+using InmobiliariaApi.Repositories;//Nuevo
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 //Nuevo
 //Configurar JWT
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<RepositorioPropietario>();//Nuevo
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

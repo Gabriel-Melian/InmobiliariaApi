@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using InmobiliariaApi.Data;
 using InmobiliariaApi.Models;
 using InmobiliariaApi.Services;
+using InmobiliariaApi.Repositories;
 using BCrypt.Net;
 
 namespace InmobiliariaApi.Controllers
@@ -21,7 +22,7 @@ namespace InmobiliariaApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Propietario model)
+        public async Task<IActionResult> Register([FromForm] Propietario model)
         {
             //Verificar si ya existe el email
             if (await _context.Propietarios.AnyAsync(p => p.Email == model.Email))
@@ -36,7 +37,7 @@ namespace InmobiliariaApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginView model)
+        public async Task<IActionResult> Login([FromForm] LoginView model)
         {
             var propietario = await _context.Propietarios
                 .FirstOrDefaultAsync(p => p.Email == model.Email);
