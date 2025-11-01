@@ -4,6 +4,7 @@ using InmobiliariaApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InmobiliariaApi.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251030193219_AjustesDeValidaciones")]
+    partial class AjustesDeValidaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +85,9 @@ namespace InmobiliariaApi.Migrations
                     b.Property<bool>("Disponible")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int?>("DuenioIdPropietario")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdPropietario")
                         .HasColumnType("int");
 
@@ -116,7 +122,7 @@ namespace InmobiliariaApi.Migrations
 
                     b.HasKey("IdInmueble");
 
-                    b.HasIndex("IdPropietario");
+                    b.HasIndex("DuenioIdPropietario");
 
                     b.ToTable("Inmuebles");
                 });
@@ -253,9 +259,7 @@ namespace InmobiliariaApi.Migrations
                 {
                     b.HasOne("InmobiliariaApi.Models.Propietario", "Duenio")
                         .WithMany()
-                        .HasForeignKey("IdPropietario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DuenioIdPropietario");
 
                     b.Navigation("Duenio");
                 });

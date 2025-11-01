@@ -6,14 +6,30 @@ namespace InmobiliariaApi.Models
     {
         [Key]
         public int IdPropietario { get; set; }
-        public string? Nombre { get; set; }
-        public string? Apellido { get; set; }
-        public string? Dni { get; set; }
+
+        [Required]
+        [StringLength(40)]
+        public string Nombre { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(40)]
+        public string Apellido { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(15)]
+        public string Dni { get; set; } = string.Empty;
+
+        [StringLength(20)]
         public string? Telefono { get; set; }
-        public string? Email { get; set; }
-        
+
+        [Required]
+        [StringLength(60)]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
         [JsonIgnore]
-        public string? Clave { get; set; }
+        [StringLength(255)]
+        public string Clave { get; set; } = string.Empty;
 
     }
 }

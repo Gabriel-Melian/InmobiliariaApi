@@ -7,11 +7,22 @@ namespace InmobiliariaApi.Models
         public int IdContrato { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFinalizacion { get; set; }
-        public double MontoAlquiler { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "El monto debe ser mayor o igual a 0")]
+        public double MontoAlquiler { get; set; }//double y float son para calculos. Usar decimal o int mejor
+
+        [Required]
         public bool Estado { get; set; }
+
+        [Required]
         public int IdInquilino { get; set; }
+
+        [Required]
         public int IdInmueble { get; set; }
+
         public Inquilino? Inquilino { get; set; }
+
         public Inmueble? Inmueble { get; set; }
     }
 }

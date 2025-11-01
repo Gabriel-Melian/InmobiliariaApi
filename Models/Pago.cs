@@ -5,11 +5,23 @@ namespace InmobiliariaApi.Models
     {
         [Key]
         public int IdPago { get; set; }
+
+        [Required]
         public DateTime FechaPago { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue)]
         public decimal Monto { get; set; }
+
+        [MaxLength(100)]
         public string? Detalle { get; set; }
+
+        [Required]
         public bool Estado { get; set; }
+
+        [Required]
         public int IdContrato { get; set; }
+
         public Contrato? Contrato { get; set; }
     }
 }

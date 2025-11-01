@@ -85,6 +85,40 @@ namespace InmobiliariaApi.Controllers
             }
         }
 
+        //Cambiar clave del propietario autenticado
+        [HttpPut("cambiar-clave")]
+        public async Task<IActionResult> CambiarClave([FromForm] string currentPassword, [FromForm] string newPassword)
+        {
+            try
+            {
+                //Obtiene el email del token
+                var email = User.Identity?.Name;
+                if (email == null)
+                    return Unauthorized("Token inválido o expirado.");
+
+                //Busca el propietario
+                var propietario = await _repo.GetByEmailAsync(email);
+                if (propietario == null)
+                    return NotFound("Propietario no encontrado.");
+
+                //Verifica y compara clave actual con la que ingresa el propietario
+                if (!BCrypt.Net.BCrypt.Verify(currentPassword, propietario.Clave))
+                    return Unauthorized("La clave actual no es correcta.");
+
+                //Hashea la nueva clave
+                propietario.Clave = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+                //Actualiza en base de datos
+                await _repo.UpdateAsync(propietario);
+
+                return Ok("Clave actualizada correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al cambiar clave: {ex.Message}");
+            }
+        }
+
         [HttpPut("restablecer")]
         [AllowAnonymous]//Esto es solo para TESTEO!!!
         public async Task<IActionResult> Restablecer()

@@ -18,7 +18,9 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 //Nuevo
 //Configurar JWT
 builder.Services.AddScoped<JwtService>();
-builder.Services.AddScoped<RepositorioPropietario>();//Nuevo
+//Repositorios
+builder.Services.AddScoped<RepositorioPropietario>();
+builder.Services.AddScoped<RepositorioInmueble>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -57,6 +59,7 @@ app.UseAuthentication();//Nuevo
 //Habilitar autorizacion
 app.UseAuthorization();//Nuevo
 app.MapControllers();//Nuevo
+app.UseStaticFiles();//(Habilita servir archivos desde el wwwroot)
 
 var summaries = new[]
 {
