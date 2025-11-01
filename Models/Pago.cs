@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace InmobiliariaApi.Models
 {
     public class Pago
@@ -7,11 +8,12 @@ namespace InmobiliariaApi.Models
         public int IdPago { get; set; }
 
         [Required]
+        [Column(TypeName = "date")]
         public DateTime FechaPago { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
-        public decimal Monto { get; set; }
+        public double Monto { get; set; }
 
         [MaxLength(100)]
         public string? Detalle { get; set; }
@@ -22,6 +24,7 @@ namespace InmobiliariaApi.Models
         [Required]
         public int IdContrato { get; set; }
 
+        [ForeignKey(nameof(IdContrato))]
         public Contrato? Contrato { get; set; }
     }
 }

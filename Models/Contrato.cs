@@ -1,11 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace InmobiliariaApi.Models
 {
     public class Contrato
     {
         [Key]
         public int IdContrato { get; set; }
+
+        [Column(TypeName = "date")]//Fecha, sin hora
         public DateTime FechaInicio { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime FechaFinalizacion { get; set; }
 
         [Required]
@@ -21,8 +26,10 @@ namespace InmobiliariaApi.Models
         [Required]
         public int IdInmueble { get; set; }
 
+        [ForeignKey(nameof(IdInquilino))]
         public Inquilino? Inquilino { get; set; }
 
+        [ForeignKey(nameof(IdInmueble))]
         public Inmueble? Inmueble { get; set; }
     }
 }

@@ -21,6 +21,8 @@ builder.Services.AddScoped<JwtService>();
 //Repositorios
 builder.Services.AddScoped<RepositorioPropietario>();
 builder.Services.AddScoped<RepositorioInmueble>();
+builder.Services.AddScoped<RepositorioContrato>();
+builder.Services.AddScoped<RepositorioPago>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
