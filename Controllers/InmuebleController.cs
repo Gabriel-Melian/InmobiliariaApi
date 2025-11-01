@@ -4,6 +4,7 @@ using InmobiliariaApi.Repositories;
 using InmobiliariaApi.Models;
 using InmobiliariaApi.Services;
 using System.Text.Json;
+using InmobiliariaApi.Models.DTOs;
 
 namespace InmobiliariaApi.Controllers
 {
@@ -122,6 +123,36 @@ namespace InmobiliariaApi.Controllers
                 var inner = ex.InnerException?.Message ?? ex.Message;
                 Console.WriteLine(ex.ToString());
                 return BadRequest($"Error al cargar inmueble: {inner}");
+            }
+        }
+
+        [HttpPut("actualizar-disponibilidad")]
+        public async Task<IActionResult> ActualizarDisponibilidad([FromBody] ActualizarInmueble dto)
+        {
+            try
+            {
+                //Obtener email del token
+                var email = User.Identity?.Name;
+                if (email == null)
+                    return Unauthorized("Token inválido o expirado.");
+
+                //Buscar inmueble por ID y propietario (No edita inmuebles de otros propietarios)
+                var inmueble = await _repoInmueble.GetByIdAndPropietarioEmailAsync(dto.IdInmueble, email);
+                if (inmueble == null)
+                    return NotFound("Inmueble no encontrado o no pertenece a este propietario.");
+
+                //Solo disponibilidad
+                inmueble.Disponible = dto.Disponible;
+
+                //Guardar cambios
+                await _repoInmueble.UpdateAsync(inmueble);
+
+                //Devolver el inmueble actualizado
+                return Ok(inmueble);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al actualizar disponibilidad: {ex.Message}");
             }
         }
     }

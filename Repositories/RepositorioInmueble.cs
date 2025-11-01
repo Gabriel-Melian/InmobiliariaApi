@@ -41,5 +41,19 @@ namespace InmobiliariaApi.Repositories
             _context.Inmuebles.Add(inmueble);
             await _context.SaveChangesAsync();
         }
+
+        //Obtener inmueble por ID y email de propietario (Solo modifico mis inmuebles)
+        public async Task<Inmueble?> GetByIdAndPropietarioEmailAsync(int idInmueble, string email)
+        {
+            return await _context.Inmuebles
+                .Include(i => i.Duenio)
+                .FirstOrDefaultAsync(i => i.IdInmueble == idInmueble && i.Duenio.Email == email);
+        }
+        //Actualizar inmueble
+        public async Task UpdateAsync(Inmueble inmueble)
+        {
+            _context.Inmuebles.Update(inmueble);
+            await _context.SaveChangesAsync();
+        }
     }
 }
