@@ -55,5 +55,14 @@ namespace InmobiliariaApi.Repositories
             _context.Inmuebles.Update(inmueble);
             await _context.SaveChangesAsync();
         }
+
+        //Obtener inmuebles con contrato vigente (solo del propietario autenticado)
+        public async Task<List<Inmueble>> GetConContratoVigenteByEmailAsync(string email)
+        {
+            return await _context.Inmuebles
+                .Include(i => i.Duenio)
+                .Where(i => i.Duenio.Email == email && i.TieneContratoVigente == true)
+                .ToListAsync();
+        }
     }
 }

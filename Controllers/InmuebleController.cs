@@ -155,5 +155,28 @@ namespace InmobiliariaApi.Controllers
                 return BadRequest($"Error al actualizar disponibilidad: {ex.Message}");
             }
         }
+
+        //GET: api/inmueble/contrato-vigente
+        [HttpGet("contrato-vigente")]
+        public async Task<IActionResult> GetInmueblesConContratoVigente()
+        {
+            try
+            {
+                var email = User.Identity?.Name;
+                if (email == null)
+                    return Unauthorized("Token inválido o expirado.");
+
+                var inmuebles = await _repoInmueble.GetConContratoVigenteByEmailAsync(email);
+
+                if (inmuebles == null || inmuebles.Count == 0)
+                    return NotFound("No se encontraron inmuebles con contrato vigente.");
+
+                return Ok(inmuebles);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al obtener inmuebles con contrato vigente: {ex.Message}");
+            }
+        }
     }
 }
