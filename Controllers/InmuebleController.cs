@@ -24,7 +24,7 @@ namespace InmobiliariaApi.Controllers
 
         //GET: api/inmueble
         [HttpGet]
-        public async Task<IActionResult> GetInmuebles()
+        public async Task<IActionResult> GetInmuebles()//Breakpoint aca, depurar paso a paso!!!!!
         {
             try
             {

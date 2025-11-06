@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 //Nuevo
 //Configurar JWT
 builder.Services.AddScoped<JwtService>();
-//Repositorios
+//Repositorios (Definir como se resuelve la inyeccion llegado ese momento)
 builder.Services.AddScoped<RepositorioPropietario>();
 builder.Services.AddScoped<RepositorioInmueble>();
 builder.Services.AddScoped<RepositorioContrato>();
@@ -99,3 +99,7 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 //dotnet add package System.IdentityModel.Tokens.Jwt
 //dotnet add package BCrypt.Net-Next
 //dotnet add package Swashbuckle.AspNetCore//No lo instale, pero creo que ya esta incluido el Swagger
+
+//Para Debuggear, si se traba o algo, hacer esto:
+//netstat -ano | findstr :5043
+//taskkill /PID 22700 /F (Reemplazar 22700 con el numero que figuere a continuacion del LISTENING)

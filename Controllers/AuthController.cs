@@ -46,7 +46,8 @@ namespace InmobiliariaApi.Controllers
                 return Unauthorized("Email o clave incorrectos.");
 
             var token = _jwtService.GenerateToken(propietario);
-            return Ok(new { token });
+            return Ok(token);
+            //return Ok(new { token });
         }
     }
 }
